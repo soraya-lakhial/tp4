@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+ <body>
+ <div>
+ <b>Nom:</b> <span id="FirstName"></span><br/>
+ <b>Prenom:</b> <span id="LastName"></span><br/>
+ <b>Tel:</b> <span id="phone"></span><br>
+ <b>ville:</b> <span id="town"></span>
+ </div>
+ <br/>
+<table id="table_personnes" border=1>
+<tr> <th>Nom</th><th>Prenom</th><th>Phone</th><th>Ville</th></tr>
+</table>
+ <script>
+ //modify the HTML
+ /*document.getElementById("FirstName").innerHTML= "Taha";
+ document.getElementById("LastName").innerHTML= "Zerrouki"; 
+ document.getElementById("phone").innerHTML= "067891011";
+ document.getElementById("town").innerHTML= "Bouira";
+ //Create a <p> element
+ var para = document.createElement("H1");
+// Create a text node
+ var t = document.createTextNode("This is a paragraph");
+// Append the text to <p>
+ para.appendChild(t);
+ para.setAttribute("align","center");
+ document.body.appendChild(para); */
+ 
+ if (window.XMLHttpRequest) //if browser supports XMLHttpRequest
+ {// Create an instance of XMLHttpRequest object. code for IE7+, Firefox,Chrome, Opera, Safari
+ xmlhttp = new XMLHttpRequest();
+ }
+ else
+ {// code for IE6, IE5
+ xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+ }
+ // sets and sends the request for calling "node.xml"
+ xmlhttp.open("GET","annuaire.xml",async = false);
+ xmlhttp.send();
+ // sets and returns the content as XML DOM
+ xmlDoc=xmlhttp.responseXML;
+ // parseing dom
+ //parsing the DOM object
+ document.getElementById("FirstName").innerHTML = xmlDoc.getElementsByTagName("nom")[0].childNodes[0].nodeValue;
+ document.getElementById("LastName").innerHTML = xmlDoc.getElementsByTagName("prenom")[0].childNodes[0].nodeValue;
+ document.getElementById("phone").innerHTML = xmlDoc.getElementsByTagName("telephone")[0].childNodes[0].nodeValue;
+ document.getElementById("town").innerHTML = xmlDoc.getElementsByTagName("ville")[0].childNodes[0].nodeValue;
+ 
+var identities = xmlDoc.getElementsByTagName("identite")
+var table = document.getElementById("table_personnes")
+for(i in identities)
+ {
+ var tr = document.createElement("tr"); // create a row
+ var td = document.createElement("td"); // create a row
+ td.innerHTML = identities[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
+ tr.appendChild(td); // add td to tr
+ var td = document.createElement("td"); // create a row
+ td.innerHTML = identities[i].getElementsByTagName("prenom")[0].childNodes[0].nodeValue;
+ tr.appendChild(td); // add td to tr
+ var td = document.createElement("td"); // create a row
+ td.innerHTML = identities[i].getElementsByTagName("telephone")[0].childNodes[0].nodeValue;
+ tr.appendChild(td); // add td to tr
+ var td = document.createElement("td"); // create a row
+ td.innerHTML = identities[i].getElementsByTagName("ville")[0].childNodes[0].nodeValue;
+ tr.appendChild(td);
+ tr.appendChild(td); // add td to tr
+ table.appendChild(tr);
+} 
+</script>
+</body>
+</html>
+
+
